@@ -188,7 +188,29 @@ router.route('/')
  *         description: Access denied, insufficient role
  *       404:
  *         description: Post not found
+ *   delete:
+ *     summary: Delete a post by ID
+ *     description: Deletes a post with the specified ID.
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the post to delete.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Post removed
+ *       401:
+ *         description: Not authorized, invalid token
+ *       403:
+ *         description: Access denied, insufficient role
+ *       404:
+ *         description: Post not found
  */
+
 router.route('/:id')
   .get(protect, authorizeRoles(...roles), getPostById)
   .delete(protect, authorizeRoles(...roles), deletePost)
